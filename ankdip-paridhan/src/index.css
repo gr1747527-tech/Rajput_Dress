@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #050505;
+  --color-secondary: #0A0A0A;
+  --color-gold: #D4AF37;
+  --color-maroon: #7B1023;
+  --color-pink: #C2185B;
+  --color-beige: #F8F3EA;
+  --color-text-primary: rgba(255, 255, 255, 0.90);
+  --color-text-muted: rgba(255, 255, 255, 0.60);
+
+  --font-editorial: "Cormorant Garamond", serif;
+  --font-secondary: "Playfair Display", serif;
+  --font-body: "Inter", sans-serif;
+}
+
+@layer base {
+  html, body {
+    @apply bg-primary text-text-primary font-body overflow-x-hidden;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-editorial;
+  }
+}
+
+/* Lenis Recommended CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Custom Scrollbar for a cleaner look when not using lenis or native elements */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Explicit Mobile Media Queries */
+@media (max-width: 767px) {
+  .booking-mobile-fix {
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    border-radius: 0 !important;
+    border: none !important;
+  }
+}
