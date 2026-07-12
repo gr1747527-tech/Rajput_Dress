@@ -42,8 +42,8 @@ function App() {
         <CottonDresses />
         <TraditionalEthnicWear />
         <DressMaterials />
-        <Parallax3DPic />
         <WomensFashion />
+        <Parallax3DPic />
         <Testimonials />
         <InstagramShowcase />
         <AboutBrand />
