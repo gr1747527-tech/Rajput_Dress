@@ -63,17 +63,17 @@ const WomensFashion = () => {
       </div>
 
       <div className="absolute top-12 md:top-24 left-6 lg:left-12 z-10">
-        <h2 className="text-3xl md:text-5xl lg:text-7xl font-editorial text-white mb-2">Women's Fashion</h2>
+        <h2 className="text-3xl md:text-5xl lg:text-7xl font-editorial text-white mb-2">Signature Collections</h2>
         <p className="text-text-muted font-body text-sm md:text-base max-w-md">
           Explore our complete range of premium editorial collections.
         </p>
       </div>
 
       {/* Horizontal Scroll Container */}
-      <div ref={scrollRef} className="flex gap-6 lg:gap-10 px-6 lg:px-12 mt-20 md:mt-32 items-center w-max">
+      <div ref={scrollRef} className="flex gap-6 lg:gap-10 px-6 lg:px-12 mt-20 md:mt-32 items-center w-max pb-10">
         {images.map((item, index) => (
-          <div key={index} className="w-[85vw] md:w-[60vw] lg:w-[45vw] aspect-[4/3] md:aspect-video relative group overflow-hidden shrink-0 rounded-lg cursor-pointer">
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent z-10 transition-opacity duration-700 group-hover:opacity-80"></div>
+          <div key={index} className="w-[85vw] md:w-[60vw] lg:w-[45vw] aspect-[4/3] md:aspect-video relative group overflow-hidden shrink-0 rounded-xl cursor-pointer border border-white/10 hover:border-gold/50 transition-colors duration-500 shadow-lg hover:shadow-[0_0_40px_rgba(212,175,55,0.2)]">
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10 transition-opacity duration-700 opacity-90 group-hover:opacity-70"></div>
             <img 
               src={item.src} 
               alt={item.title} 
@@ -82,9 +82,12 @@ const WomensFashion = () => {
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2s] ease-out"
             />
             {/* Interactive Card Content */}
-            <div className="absolute bottom-8 left-8 z-20 transition-transform duration-700 transform md:translate-y-2 md:group-hover:translate-y-0">
-              <h3 className="text-2xl font-editorial text-white mb-1 drop-shadow-md">{item.title}</h3>
-              <p className="text-xs font-body tracking-widest text-gold uppercase opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-700">View Collection</p>
+            <div className="absolute bottom-8 left-8 z-20 transition-all duration-700 transform md:translate-y-4 md:group-hover:translate-y-0">
+              <h3 className="text-3xl md:text-4xl font-editorial text-white mb-2 drop-shadow-lg">{item.title}</h3>
+              <div className="flex items-center gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-700 delay-100">
+                <div className="w-8 h-[1px] bg-gold"></div>
+                <p className="text-xs font-body tracking-[0.2em] text-gold uppercase">Explore Now</p>
+              </div>
             </div>
           </div>
         ))}
