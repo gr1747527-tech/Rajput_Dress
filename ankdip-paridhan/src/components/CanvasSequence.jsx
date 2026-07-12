@@ -136,7 +136,7 @@ const CanvasSequence = () => {
   }, [loadedFrames, frameConfig]);
 
   return (
-    <section ref={containerRef} className="relative w-full h-[100dvh] bg-primary overflow-hidden">
+    <section ref={containerRef} className="relative w-full h-screen bg-primary overflow-hidden">
       <canvas
         ref={canvasRef}
         className="w-full h-full object-cover"

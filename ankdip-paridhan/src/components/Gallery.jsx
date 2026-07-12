@@ -36,7 +36,7 @@ const Gallery = () => {
   ];
 
   return (
-    <section ref={containerRef} id="gallery" className="w-full h-[100dvh] bg-primary overflow-hidden flex flex-col justify-center relative">
+    <section ref={containerRef} id="gallery" className="w-full h-screen bg-primary overflow-hidden flex flex-col justify-center relative">
       
       <div className="absolute top-12 md:top-24 left-6 lg:left-12 z-10">
         <h2 className="text-3xl md:text-5xl font-editorial text-white mb-2">The Campaign</h2>
