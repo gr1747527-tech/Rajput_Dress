@@ -13,6 +13,7 @@ import CottonDresses from './components/CottonDresses';
 import TraditionalEthnicWear from './components/TraditionalEthnicWear';
 import DressMaterials from './components/DressMaterials';
 import WomensFashion from './components/WomensFashion';
+import Parallax3DPic from './components/Parallax3DPic';
 import InstagramShowcase from './components/InstagramShowcase';
 import Testimonials from './components/Testimonials';
 import AboutBrand from './components/AboutBrand';
@@ -42,6 +43,7 @@ function App() {
         <TraditionalEthnicWear />
         <DressMaterials />
         <WomensFashion />
+        <Parallax3DPic />
         <Testimonials />
         <InstagramShowcase />
         <AboutBrand />
