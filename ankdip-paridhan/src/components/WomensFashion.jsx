@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -37,6 +38,30 @@ const WomensFashion = () => {
   return (
     <section ref={containerRef} id="womens-fashion" className="w-full h-screen bg-primary overflow-hidden flex flex-col justify-center relative">
       
+      {/* Animated Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{
+            x: [-50, 50, -50],
+            y: [0, -30, 0],
+            scale: [1, 1.1, 1],
+            opacity: [0.3, 0.5, 0.3]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/3 -left-20 w-[40vw] h-[40vw] bg-gold/5 rounded-full blur-[100px]"
+        />
+        <motion.div
+          animate={{
+            x: [50, -50, 50],
+            y: [30, 0, 30],
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.4, 0.2]
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-0 -right-20 w-[50vw] h-[50vw] bg-white/5 rounded-full blur-[120px]"
+        />
+      </div>
+
       <div className="absolute top-12 md:top-24 left-6 lg:left-12 z-10">
         <h2 className="text-3xl md:text-5xl lg:text-7xl font-editorial text-white mb-2">Women's Fashion</h2>
         <p className="text-text-muted font-body text-sm md:text-base max-w-md">
