@@ -63,10 +63,10 @@ const Parallax3DPic = () => {
       {/* Floating Content */}
       <div ref={overlayRef} className="relative z-10 text-center px-6" style={{ transform: 'translateZ(50px)' }}>
         <h2 className="text-5xl md:text-7xl lg:text-8xl font-editorial text-white mb-6 drop-shadow-2xl">
-          Ethereal Beauty
+          Premium Materials
         </h2>
         <p className="text-gold font-body tracking-[0.3em] uppercase text-sm md:text-base drop-shadow-md">
-          A Journey Through Heritage
+          Crafting Royal Customer Experiences
         </p>
       </div>
     </section>
