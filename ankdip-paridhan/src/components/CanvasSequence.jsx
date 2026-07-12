@@ -28,72 +28,99 @@ const CanvasSequence = () => {
     
     const framesToLoad = Math.floor(MAX_FRAMES / step);
     setFrameConfig({ total: framesToLoad, step });
+    imagesRef.current = new Array(framesToLoad).fill(null);
 
-    // Preload images based on step
-    const loadImages = async () => {
-      imagesRef.current = new Array(framesToLoad).fill(null);
-      for (let i = 0; i < framesToLoad; i++) {
+    let isComponentMounted = true;
+
+    // Load first frame immediately to avoid black screen
+    const loadFirstFrame = () => {
+      const img = new Image();
+      const paddedIndex = '0001';
+      img.src = `/assets/sequence/${paddedIndex}.jpg`;
+      img.onload = () => {
+        if (!isComponentMounted) return;
+        imagesRef.current[0] = img;
+        setLoadedFrames(prev => prev + 1);
+        drawImage(0); // Draw immediately
+      };
+    };
+    loadFirstFrame();
+
+    // Load remaining frames in parallel to speed up Vercel loading
+    const loadRemainingFrames = () => {
+      for (let i = 1; i < framesToLoad; i++) {
         const img = new Image();
-        // Calculate original frame index (1-indexed)
         const frameIndex = (i * step) + 1;
         const paddedIndex = frameIndex.toString().padStart(4, '0');
         img.src = `/assets/sequence/${paddedIndex}.jpg`;
         
-        await new Promise((resolve) => {
-          img.onload = () => {
-            imagesRef.current[i] = img;
-            setLoadedFrames((prev) => prev + 1);
-            resolve();
-          };
-          img.onerror = resolve; // Continue even if one fails
-        });
+        img.onload = () => {
+          if (!isComponentMounted) return;
+          imagesRef.current[i] = img;
+          setLoadedFrames(prev => prev + 1);
+        };
+        img.onerror = () => {
+          if (!isComponentMounted) return;
+          // Put a dummy or null so we don't stall
+          setLoadedFrames(prev => prev + 1);
+        };
       }
     };
     
-    loadImages();
+    // Defer loading the rest so the first frame renders faster
+    setTimeout(loadRemainingFrames, 100);
+
+    return () => {
+      isComponentMounted = false;
+    };
   }, []);
 
-  useEffect(() => {
-    if (frameConfig.total === 0 || loadedFrames < frameConfig.total) return;
-
+  const drawImage = (index) => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d', { alpha: false });
+    
+    // If exact frame isn't loaded, try to find the nearest previous loaded frame
+    let renderIndex = index;
+    while (renderIndex >= 0 && !imagesRef.current[renderIndex]) {
+      renderIndex--;
+    }
+    
+    if (renderIndex < 0 || !imagesRef.current[renderIndex]) return;
+
+    const img = imagesRef.current[renderIndex];
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const canvasRatio = canvas.width / canvas.height;
+    const imgRatio = img.width / img.height;
+
+    let drawWidth = canvas.width;
+    let drawHeight = canvas.height;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    if (canvasRatio > imgRatio) {
+      drawHeight = canvas.width / imgRatio;
+      offsetY = (canvas.height - drawHeight) / 2;
+    } else {
+      drawWidth = canvas.height * imgRatio;
+      offsetX = (canvas.width - drawWidth) / 2;
+    }
+
+    ctx.fillStyle = '#050505';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
+    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+  };
+
+  useEffect(() => {
+    if (frameConfig.total === 0) return;
+
     const container = containerRef.current;
-
-    const drawImage = (index) => {
-      if (!imagesRef.current[index]) return;
-      const img = imagesRef.current[index];
-
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const canvasRatio = canvas.width / canvas.height;
-      const imgRatio = img.width / img.height;
-
-      let drawWidth = canvas.width;
-      let drawHeight = canvas.height;
-      let offsetX = 0;
-      let offsetY = 0;
-
-      if (canvasRatio > imgRatio) {
-        drawHeight = canvas.width / imgRatio;
-        offsetY = (canvas.height - drawHeight) / 2;
-      } else {
-        drawWidth = canvas.height * imgRatio;
-        offsetX = (canvas.width - drawWidth) / 2;
-      }
-
-      ctx.fillStyle = '#050505';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-
-      ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
-    };
-
-    drawImage(0);
-
     const state = { frame: 0 };
     
     const tl = gsap.timeline({
@@ -129,11 +156,11 @@ const CanvasSequence = () => {
     window.addEventListener('resize', handleResize);
 
     return () => {
-      tl.scrollTrigger.kill();
+      tl.scrollTrigger?.kill();
       tl.kill();
       window.removeEventListener('resize', handleResize);
     };
-  }, [loadedFrames, frameConfig]);
+  }, [frameConfig]);
 
   return (
     <section ref={containerRef} className="relative w-full h-screen bg-primary overflow-hidden">
