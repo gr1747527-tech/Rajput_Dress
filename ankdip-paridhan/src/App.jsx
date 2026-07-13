@@ -31,7 +31,7 @@ function App() {
   }, []);
 
   return (
-    <ReactLenis root options={{ lerp: 0.08, smoothWheel: true, syncTouch: true }}>
+    <ReactLenis root options={{ lerp: 0.08, smoothWheel: true, smoothTouch: true, syncTouch: true }}>
       <Preloader />
       <Navbar onBookClick={() => setIsBookingOpen(true)} />
       <main className="w-full min-h-[100dvh] bg-primary" id="home">

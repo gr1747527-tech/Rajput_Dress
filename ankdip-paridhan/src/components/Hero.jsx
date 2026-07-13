@@ -48,14 +48,14 @@ const Hero = ({ onBookClick }) => {
           Discover the official destination for authentic Rajputi Poshak and premium ethnic wear. Handcrafted in Bikaner, preserving our timeless heritage through exceptional quality and craftsmanship.
         </p>
 
-        <div className="flex flex-col md:flex-row items-center gap-4 mt-8 font-body text-xs tracking-widest uppercase">
-          <a href="#womens-fashion" className="px-8 py-3 bg-white text-black hover:bg-gold hover:text-white transition-colors duration-500 text-center inline-block">
+        <div className="flex flex-col md:flex-row items-center gap-4 mt-8 font-body text-xs tracking-widest uppercase w-full md:w-auto px-4 md:px-0">
+          <a href="#womens-fashion" className="w-full md:w-auto px-8 py-3.5 bg-white text-black hover:bg-gold hover:text-white transition-colors duration-500 text-center inline-block">
             Explore Collection
           </a>
-          <button onClick={onBookClick} className="px-8 py-3 border border-white/30 text-white hover:border-gold hover:text-gold transition-colors duration-500">
+          <button onClick={onBookClick} className="w-full md:w-auto px-8 py-3.5 border border-white/30 text-white hover:border-gold hover:text-gold transition-colors duration-500">
             Book Now
           </button>
-          <a href="tel:+917378288602" className="px-8 py-3 border border-transparent text-text-muted hover:text-white transition-colors duration-500 underline underline-offset-4 inline-block text-center">
+          <a href="tel:+917378288602" className="w-full md:w-auto px-8 py-3 border border-transparent text-text-muted hover:text-white transition-colors duration-500 underline underline-offset-4 inline-block text-center">
             Call Now
           </a>
         </div>

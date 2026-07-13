@@ -54,7 +54,7 @@ const Parallax3DPic = () => {
           ref={imageRef}
           src="/assets/3d-pic.jpg" 
           alt="Royal 3D Elegance" 
-          className="w-full h-full object-cover object-[center_75%] absolute inset-0"
+          className="w-full h-full object-cover object-center md:object-[center_75%] absolute inset-0"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-primary via-black/40 to-primary/80 opacity-90"></div>
         <div className="absolute inset-0 bg-black/20"></div>
