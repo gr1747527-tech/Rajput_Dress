@@ -87,22 +87,37 @@ const BookingModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-0 md:p-4 sm:p-6 booking-modal-overlay">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-0 md:p-8 booking-modal-overlay">
       <div className="absolute inset-0 bg-primary/80 backdrop-blur-md" onClick={onClose}></div>
       
-      <div className="booking-modal-content booking-mobile-fix relative bg-[#0a0a0a] border-0 md:border border-white/10 rounded-none md:rounded-2xl w-full h-[100dvh] md:h-auto md:max-h-[90vh] max-w-2xl overflow-y-auto shadow-2xl">
-        <button 
-          onClick={onClose}
-          className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors"
-          aria-label="Close"
-        >
-          <X size={24} />
-        </button>
+      <div 
+        className="booking-modal-content relative bg-[#0a0a0a] border-0 md:border border-white/10 rounded-none md:rounded-2xl w-full h-[100dvh] max-h-[100dvh] md:h-auto md:max-h-[90vh] max-w-2xl flex flex-col shadow-2xl z-10"
+        style={{
+          paddingTop: 'env(safe-area-inset-top)',
+          paddingBottom: 'env(safe-area-inset-bottom)',
+          paddingLeft: 'env(safe-area-inset-left)',
+          paddingRight: 'env(safe-area-inset-right)'
+        }}
+      >
+        {/* Sticky Header with Close Button */}
+        <div className="sticky top-0 z-20 flex justify-end p-4 md:p-6 bg-gradient-to-b from-[#0a0a0a] to-[#0a0a0a]/90 backdrop-blur-sm">
+          <button 
+            onClick={onClose}
+            className="w-11 h-11 flex items-center justify-center bg-white/5 hover:bg-white/10 md:bg-transparent md:hover:bg-white/5 rounded-full text-white/70 hover:text-white transition-colors"
+            aria-label="Close"
+          >
+            <X size={24} />
+          </button>
+        </div>
         
-        <div className="p-6 md:p-12 min-h-full flex flex-col justify-center">
-          <div className="text-center mb-8 md:mb-10 mt-8 md:mt-0">
-            <h2 className="text-3xl md:text-4xl font-editorial text-white mb-2">Advance Booking</h2>
-            <p className="text-text-muted font-body text-sm tracking-widest uppercase">Reserve your exclusive piece</p>
+        {/* Scrollable Form Content */}
+        <div 
+          className="flex-1 overflow-y-auto overflow-x-hidden p-4 min-[360px]:p-5 sm:p-8 md:p-12 md:pt-0 pt-0 overscroll-contain"
+          style={{ WebkitOverflowScrolling: 'touch' }}
+        >
+          <div className="text-center mb-8 md:mb-10">
+            <h2 className="text-[28px] min-[360px]:text-[32px] sm:text-[40px] md:text-[48px] leading-tight font-editorial text-white mb-2">Advance Booking</h2>
+            <p className="text-text-muted font-body text-xs md:text-sm tracking-widest uppercase">Reserve your exclusive piece</p>
           </div>
           
           {status === 'success' ? (
@@ -114,26 +129,26 @@ const BookingModal = ({ isOpen, onClose }) => {
               <p className="text-white/60 font-body text-sm">Thank you for your reservation. Our team will contact you shortly.</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4 md:gap-6 pb-8 md:pb-0">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <div className="flex flex-col gap-1.5 md:gap-2">
-                  <label className="text-[10px] md:text-xs text-white/60 uppercase tracking-widest font-body">Full Name</label>
-                  <input type="text" name="name" required value={formData.name} onChange={handleChange} className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gold transition-colors" />
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 md:gap-6 w-full pb-8 md:pb-0">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 w-full">
+                <div className="flex flex-col gap-2 w-full">
+                  <label className="text-[11px] md:text-xs text-white/60 uppercase tracking-widest font-body">Full Name</label>
+                  <input type="text" name="name" required value={formData.name} onChange={handleChange} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 h-[56px] text-[16px] text-white focus:outline-none focus:border-gold transition-colors box-border" />
                 </div>
-                <div className="flex flex-col gap-1.5 md:gap-2">
-                  <label className="text-[10px] md:text-xs text-white/60 uppercase tracking-widest font-body">Phone Number</label>
-                  <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gold transition-colors" />
+                <div className="flex flex-col gap-2 w-full">
+                  <label className="text-[11px] md:text-xs text-white/60 uppercase tracking-widest font-body">Phone Number</label>
+                  <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 h-[56px] text-[16px] text-white focus:outline-none focus:border-gold transition-colors box-border" />
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <div className="flex flex-col gap-1.5 md:gap-2">
-                  <label className="text-[10px] md:text-xs text-white/60 uppercase tracking-widest font-body">Email Address</label>
-                  <input type="email" name="email" required value={formData.email} onChange={handleChange} className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gold transition-colors" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 w-full">
+                <div className="flex flex-col gap-2 w-full">
+                  <label className="text-[11px] md:text-xs text-white/60 uppercase tracking-widest font-body">Email Address</label>
+                  <input type="email" name="email" required value={formData.email} onChange={handleChange} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 h-[56px] text-[16px] text-white focus:outline-none focus:border-gold transition-colors box-border" />
                 </div>
-                <div className="flex flex-col gap-1.5 md:gap-2">
-                  <label className="text-[10px] md:text-xs text-white/60 uppercase tracking-widest font-body">Collection Preference</label>
-                  <select name="collection" value={formData.collection} onChange={handleChange} className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gold transition-colors appearance-none">
+                <div className="flex flex-col gap-2 w-full">
+                  <label className="text-[11px] md:text-xs text-white/60 uppercase tracking-widest font-body">Collection Preference</label>
+                  <select name="collection" value={formData.collection} onChange={handleChange} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 h-[56px] text-[16px] text-white focus:outline-none focus:border-gold transition-colors appearance-none box-border">
                     <option value="Rajputi Poshak" className="bg-primary">Rajputi Poshak</option>
                     <option value="Cotton Dress" className="bg-primary">Cotton Dress</option>
                     <option value="Traditional Ethnic Wear" className="bg-primary">Traditional Ethnic Wear</option>
@@ -142,14 +157,14 @@ const BookingModal = ({ isOpen, onClose }) => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-1.5 md:gap-2">
-                <label className="text-[10px] md:text-xs text-white/60 uppercase tracking-widest font-body">Preferred Date</label>
-                <input type="date" name="date" required value={formData.date} onChange={handleChange} className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gold transition-colors" style={{colorScheme: 'dark'}} />
+              <div className="flex flex-col gap-2 w-full">
+                <label className="text-[11px] md:text-xs text-white/60 uppercase tracking-widest font-body">Preferred Date</label>
+                <input type="date" name="date" required value={formData.date} onChange={handleChange} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 h-[56px] text-[16px] text-white focus:outline-none focus:border-gold transition-colors box-border" style={{colorScheme: 'dark'}} />
               </div>
 
-              <div className="flex flex-col gap-1.5 md:gap-2">
-                <label className="text-[10px] md:text-xs text-white/60 uppercase tracking-widest font-body">Special Requests</label>
-                <textarea name="requests" rows="3" value={formData.requests} onChange={handleChange} className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gold transition-colors resize-none"></textarea>
+              <div className="flex flex-col gap-2 w-full">
+                <label className="text-[11px] md:text-xs text-white/60 uppercase tracking-widest font-body">Special Requests</label>
+                <textarea name="requests" value={formData.requests} onChange={handleChange} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-4 min-h-[140px] text-[16px] text-white focus:outline-none focus:border-gold transition-colors resize-none box-border"></textarea>
               </div>
 
               {status === 'error' && (
@@ -159,7 +174,7 @@ const BookingModal = ({ isOpen, onClose }) => {
               <button 
                 type="submit" 
                 disabled={status === 'loading'}
-                className="w-full mt-4 bg-gold hover:bg-gold/90 text-primary py-4 rounded-lg font-body text-xs tracking-widest uppercase transition-colors disabled:opacity-70 flex justify-center items-center"
+                className="w-full mt-4 min-h-[56px] bg-gold hover:bg-gold/90 text-primary rounded-lg font-body text-xs sm:text-sm tracking-widest uppercase transition-colors disabled:opacity-70 flex justify-center items-center box-border"
               >
                 {status === 'loading' ? 'Processing...' : 'Confirm Booking'}
               </button>
